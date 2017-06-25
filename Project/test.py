@@ -1,4 +1,4 @@
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.naive_bayes import GaussianNB
@@ -14,6 +14,8 @@ def read_file(file_name):
 
 
 def label_encoder(file):
+    file = file.drop('e.1', 1)
+
     le = LabelEncoder()
 
     for col in file.columns:
@@ -57,7 +59,7 @@ def naive_bayes(x_train, x_test, y_train, y_test):
 
 
 def k_neighbors_classifier(x_train, x_test, y_train, y_test):
-    knn = KNeighborsClassifier(n_neighbors=3, p=2, metric='minkowski').fit(x_train, y_train)
+    knn = KNeighborsClassifier(n_neighbors=4, p=2, metric='minkowski').fit(x_train, y_train)
     y_predicted = knn.predict(x_test)
 
     print("K NEIGHBORS CLASSIFIER:")
